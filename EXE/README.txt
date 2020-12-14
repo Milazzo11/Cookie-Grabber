@@ -1,1 +1,1 @@
-EXE file to run on target computer
+Run on the target machine
